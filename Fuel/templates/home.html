@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DASHBOARD</title>
+    <!-- Core CSS - Include with every page -->
+
+    <!-- Page-Level CSS -->
+    <!-- <link href="assets/plugins/morris/morris-0.4.3.min.css" rel="stylesheet" /> -->
+
+    <link href="{{ url_for('static', filename='bootstrap.css')}}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='font-awesome.css')}}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='pace-theme-big-counter.css')}}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='style.css')}}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='/main-style.css')}}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='/morris-0.4.3.min.css')}}" rel="stylesheet" />
+
+</head>
+
+<body>
+    <!--  wrapper -->
+    <div id="wrapper">
+        <!-- navbar top -->
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar">
+            <!-- navbar-header -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">
+                    <H2>DASHBOARD</H2>
+                </a>
+            </div>
+            <!-- end navbar-header -->
+            <!-- navbar-top-links -->
+            <ul class="nav navbar-top-links navbar-right">
+                <!-- main dropdown -->
+
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-3x"></i>
+                    </a>
+                    <!-- dropdown user-->
+                    <ul class="dropdown-menu dropdown-user">
+
+                        <li class="divider"></li>
+                        <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+                        </li>
+                    </ul>
+                    <!-- end dropdown-user -->
+                </li>
+                <!-- end main dropdown -->
+            </ul>
+            <!-- end navbar-top-links -->
+
+        </nav>
+        <!-- end navbar top -->
+
+        <!-- navbar side -->
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <!-- sidebar-collapse -->
+            <div class="sidebar-collapse">
+                <!-- side-menu -->
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <!-- user image section-->
+                        <div class="user-section">
+                            <div class="user-section-inner">
+                                <img src="{{ url_for('static', filename='/user.jpg')}}" alt="">
+                            </div>
+                            <div class="user-info">
+                                <div> <strong>Admin</strong></div>
+                                <div class="user-text-online">
+                                    <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;Online
+                                </div>
+                            </div>
+                        </div>
+                        <!--end user image section-->
+                    </li>
+                    <li class="sidebar-search">
+                        <!-- search section-->
+
+                        <!--end search section-->
+                    </li>
+                    <li class="selected">
+                        <a href="{{ url_for('home') }}"><i class="fa fa-dashboard fa-fw"></i>DASHBOARD</a>
+                    </li>
+                    <li class="">
+                        <a href="{{ url_for('profile') }}"><i class="fa fa-dashboard fa-fw"></i>PROFILE</a>
+                    </li>
+                    <li class="">
+                        <a href="{{ url_for('logout') }}"><i class="fa fa-dashboard fa-fw"></i>LOGOUT </a>
+                    </li>
+
+                </ul>
+                <!-- end side-menu -->
+            </div>
+            <!-- end sidebar-collapse -->
+        </nav>
+        <!-- end navbar side -->
+        <!--  page-wrapper -->
+        <div id="page-wrapper">
+
+            <div class="row">
+                <!-- Page Header -->
+                <div class="col-lg-12">
+
+                </div>
+                <!--End Page Header -->
+            </div>
+
+
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Form Elements -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Basic Form Elements
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <form method="post" action="{{ url_for('upload_image')}}"
+                                        enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input class="form-control" type="text" name="p1"
+                                                placeholder="Enter HRM Name">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Username</label>
+                                            <input class="form-control" type="text" name="p3"
+                                                placeholder="Enter HRM Username">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Username</label>
+                                            <input type="file" name="file" autocomplete="off" required>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <!--End Chat Panel Example-->
+
+
+                <div class="col-lg-12">
+                    <!-- Form Elements -->
+                    <div class="panel panel-default">
+                        <p>
+                            {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                        <ul>
+                            {% for message in messages %}
+                            <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% endwith %}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <!-- Form Elements -->
+                    <div class="panel panel-default">
+                        {% if filename %}
+                        <img src="{{ url_for('display_image', filename=filename) }}" width=400 height=500>
+                        {% endif %}
+                    </div>
+                </div>
+
+
+
+            </div>
+            <!-- end page-wrapper -->
+
+        </div>
+        <!-- end wrapper -->
+
+        <!-- Core Scripts - Include with every page -->
+
+
+</body>
+
+</html>
